@@ -1,7 +1,6 @@
 
 import React from 'react'
 
-
 const Header = ({text}) => <h1>{text}</h1>
 const Part = ({part}) => <p>{part.name} {part.exercises}</p>
   
@@ -19,9 +18,9 @@ const Total = ({parts}) => {
     const sum = () => parts.map(part => part.exercises).reduce((pre, cur) => pre + cur)
 
     return (
-        <h2>
+        <h3>
             total of {sum()} exercises
-        </h2>
+        </h3>
     )
 }
 

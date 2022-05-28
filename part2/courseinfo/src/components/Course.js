@@ -6,8 +6,6 @@ const Header = ({text}) => <h1>{text}</h1>
 const Part = ({part}) => <p>{part.name} {part.exercises}</p>
   
 const Content = ({parts}) => {
-    console.log(parts);
-    
     return (
         <div>
             {parts.map(part =>
@@ -16,12 +14,23 @@ const Content = ({parts}) => {
         </div>
     )
 }
-  
+
+const Total = ({parts}) => {
+    const sum = () => parts.map(part => part.exercises).reduce((pre, cur) => pre + cur)
+
+    return (
+        <h2>
+            total of {sum()} exercises
+        </h2>
+    )
+}
+
 const Course = ({course}) => {
     return (
         <>
         <Header text={course.name} />
         <Content parts={course.parts} />
+        <Total parts={course.parts} />
         </>
     )
 }

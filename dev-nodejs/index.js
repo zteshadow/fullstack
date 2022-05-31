@@ -48,6 +48,7 @@ app.delete('/api/notes/:id', (request, response) => {
 
   if (note) {
     notes = notes.filter(note => note.id != id)
+    response.status(204).end()
   } else {
     response.status(404).end()
   }

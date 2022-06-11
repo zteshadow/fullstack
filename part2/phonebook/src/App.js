@@ -9,9 +9,15 @@ const App = () => {
 
   const handleAdd = (evt) => {
     evt.preventDefault()
+    if (persons.find(person => person.name === newName)) {
+      alert(`${newName} is already added to phonebook`)
+      setNewName("")
+      return
+    }
+
     setPersons(persons.concat({"name": newName}))
-    console.log("handle add")
-    
+    setNewName("")
+    console.log(`handle add: ${newName}`)
   }
 
   const handleNameInput = (evt) => {

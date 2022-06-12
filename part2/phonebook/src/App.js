@@ -11,40 +11,26 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345' },
     { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
-  
+
   const [newPerson, setNewPerson] = useState({name: "", number: ""})
   const [filter, setFilter] = useState("")
+  const shownPerson = persons.filter(person => {
+    const lowerName = person.name.toLowerCase()
+    const lowerFilter = filter.toLowerCase()
+    console.log(lowerName, lowerFilter)
+    
+    return lowerName.includes(lowerFilter)
+  })
 
-  const invalidPerson= (newPerson) => {
-    if (persons.find(person => person.name === newPerson.name)) {
-      alert(`${newPerson.name} is already added to phonebook`)
+  const handleNewPerson = (newValue) => {
+    if (persons.find(person => person.name === newValue.name)) {
+      alert(`${newValue.name} is already added to phonebook`)
       setNewPerson({name: "", number: ""})
       return true
     }
 
-    if (newPerson.name.length === 0) {
-      alert(`name is necessary`)
-      return true
-    }
-
-    if (newPerson.number.length === 0) {
-      alert(`number is necessary`)
-      return true
-    }
-
-    return false
-  }
-
-  const handleNewPerson = (evt) => {
-    evt.preventDefault()
-
-    if (invalidPerson(newPerson)) {
-      return
-    }
-
-    setPersons(persons.concat({name: newPerson.name, number: newPerson.number}))
+    setPersons(persons.concat({name: newValue.name, number: newValue.number}))
     setNewPerson({name: "", number: ""})
-
     console.log(`handle add: ${newPerson.name}, ${newPerson.number}`)
   }
 
@@ -55,7 +41,7 @@ const App = () => {
       <h3>Add a new</h3>
       <PersonForm onSubmit={handleNewPerson} value={newPerson} updateValue={setNewPerson} />
       <h3>Numbers</h3>
-      <Persons persons={persons} />
+      <Persons persons={shownPerson} />
     </div>
   )
 }

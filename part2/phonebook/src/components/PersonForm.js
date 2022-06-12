@@ -18,8 +18,32 @@ const PersonForm = ({onSubmit, value, updateValue}) => {
         updateValue(newPerson)
     }
 
+    const invalidPerson= (newPerson) => {
+
+        if (newPerson.name.length === 0) {
+          alert(`name is necessary`)
+          return true
+        }
+    
+        if (newPerson.number.length === 0) {
+          alert(`number is necessary`)
+          return true
+        }
+    
+        return false
+      }
+    
+    const handleAdd = (evt) => {
+        evt.preventDefault()
+
+        if (invalidPerson(value)) {
+            return
+        }
+        onSubmit(value)
+    }
+
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleAdd}>
         <div>name: <input value={value.name} onChange={handleName}/></div>
         <div>number: <input value={value.number} onChange={handleNumber}/></div>
         <div><button type="submit">add</button></div>

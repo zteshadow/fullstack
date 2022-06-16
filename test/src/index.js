@@ -1,11 +1,6 @@
-import axios from 'axios'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 
-axios
-  .get('http://localhost:3001/notes')
-  .then(response => {
-    const data = response.data
-    console.log("** OK", {data})
-  })
+import App from './App'
 
-const promise2 = axios.get('http://localhost:3001/foobar')
-console.log(promise2)
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)

@@ -5,6 +5,8 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 
 const App = () => {
+  
+  // state
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456' },
     { name: 'Ada Lovelace', number: '39-44-5323523' },
@@ -14,14 +16,16 @@ const App = () => {
 
   const [newPerson, setNewPerson] = useState({name: "", number: ""})
   const [filter, setFilter] = useState("")
+
+  // data
   const shownPerson = persons.filter(person => {
     const lowerName = person.name.toLowerCase()
     const lowerFilter = filter.toLowerCase()
     console.log(lowerName, lowerFilter)
-    
     return lowerName.includes(lowerFilter)
   })
 
+  // function
   const handleNewPerson = (newValue) => {
     if (persons.find(person => person.name === newValue.name)) {
       alert(`${newValue.name} is already added to phonebook`)
@@ -34,6 +38,7 @@ const App = () => {
     console.log(`handle add: ${newPerson.name}, ${newPerson.number}`)
   }
 
+  // body
   return (
     <div>
       <h2>Phonebook</h2>

@@ -4,7 +4,9 @@ import React from 'react'
 const CountryList = ({countries}) => {
     return (
         <ul>
-        {countries.map(country => <div>{country.name}</div>)}
+        {countries.map(country =>
+            <div key={country.name.common}> {country.name.common} </div>
+        )}
         </ul>
     )
 }

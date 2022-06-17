@@ -18,18 +18,15 @@ const App = () => {
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
-        setCountries(response.data.map(item => {
-          return {'name': item.name.common}
-        }))
-        console.log('data is ready', countries)
-        })
+        setCountries(response.data)
+      })
   }, [])
 
   console.log('countries: ', countries.length)
   
   // filtered countries
   const filteredCountries = countries.filter(country => {
-    const lowerName = country.name.toLowerCase()
+    const lowerName = country.name.common.toLowerCase()
     const lowerFilter = filter.toLowerCase()
     console.log(lowerName, lowerFilter)
     return lowerName.includes(lowerFilter)

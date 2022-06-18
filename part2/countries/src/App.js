@@ -28,7 +28,7 @@ const App = () => {
   const filteredCountries = countries.filter(country => {
     const lowerName = country.name.common.toLowerCase()
     const lowerFilter = filter.toLowerCase()
-    console.log(lowerName, lowerFilter)
+    //console.log(lowerName, lowerFilter)
     return lowerName.includes(lowerFilter)
   })
 
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <div>
       <Filter value={filter} onChange={(evt) => setFilter(evt.target.value)} />
-      <CountryList countries={filteredCountries} />
+      <CountryList countries={filteredCountries} filterEnabled={filter.length > 0} />
     </div>
   )
 }

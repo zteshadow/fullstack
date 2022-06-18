@@ -2,7 +2,7 @@
 import React from 'react'
 
 const Country = ({country}) => {
-    console.log('languages', country.languages, typeof country.languages)
+    console.log('flags', country.flags.png)
     
     return (
         <>
@@ -15,6 +15,7 @@ const Country = ({country}) => {
         <ul>
             {Object.values(country.languages).map(language => <li key={language}>{language}</li>)}
         </ul>
+        <img src={country.flags.png} />
         </>
     )
 }

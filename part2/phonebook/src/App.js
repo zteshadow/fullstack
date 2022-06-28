@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import persionService from './services/PersonService'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
@@ -16,12 +17,11 @@ const App = () => {
   // effect
   useEffect(() => {
     console.log('getting data...')
-    
-    axios
-      .get('http://localhost:3001/persons')
-      .then(respnse => {
+    persionService
+      .getAll()
+      .then(allPersons => {
         console.log('data is reasdy')
-        setPersons(respnse.data)
+        setPersons(allPersons)
         })
   }, [])
 

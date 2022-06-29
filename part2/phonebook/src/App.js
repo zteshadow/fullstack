@@ -25,13 +25,13 @@ const App = () => {
         })
   }, [])
 
-  console.log('persons: ', persons.length)
+  //console.log('persons: ', persons.length)
   
   // data
   const shownPerson = persons.filter(person => {
     const lowerName = person.name.toLowerCase()
     const lowerFilter = filter.toLowerCase()
-    console.log(lowerName, lowerFilter)
+    //console.log(lowerName, lowerFilter)
     return lowerName.includes(lowerFilter)
   })
 
@@ -43,9 +43,14 @@ const App = () => {
       return true
     }
 
-    setPersons(persons.concat({name: newValue.name, number: newValue.number}))
-    setNewPerson({name: "", number: ""})
-    console.log(`handle add: ${newPerson.name}, ${newPerson.number}`)
+    persionService
+      .create(newValue)
+      .then(returnedValue => {
+        setPersons(persons.concat(returnedValue))
+        setNewPerson({name: "", number: ""})
+        console.log(`handle returned: ${returnedValue.name}, ${returnedValue.number}`)
+      }
+    )
   }
 
   // body

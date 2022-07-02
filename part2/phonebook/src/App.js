@@ -36,9 +36,20 @@ const App = () => {
 
   // function
   const handleNewPerson = (newValue) => {
-    if (persons.find(person => person.name === newValue.name)) {
-      alert(`${newValue.name} is already added to phonebook`)
-      setNewPerson({name: "", number: ""})
+    const exist = persons.find(person => person.name === newValue.name)
+    if (exist) {
+      if (exist.number === newValue.number) { /// just warn
+        alert(`${newValue.name} is already added to phonebook`)
+        setNewPerson({name: "", number: ""})
+      } else {
+        if (window.confirm(`${newValue.name} is already added to phonebook, replace the old number with a new one?`)) {
+          persionService
+            .update(exist.id, newValue)
+            .then(returnedPerson => {
+              setPersons(persons.map(p => p.id === returnedPerson.id ? returnedPerson : p))
+            })
+        }
+      }
       return true
     }
 

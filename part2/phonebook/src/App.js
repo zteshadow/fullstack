@@ -4,14 +4,15 @@ import persionService from './services/PersonService'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
+import Notification from './components/Notification'
 
 const App = () => {
   
   // state
   const [persons, setPersons] = useState([])
-
   const [newPerson, setNewPerson] = useState({name: "", number: ""})
   const [filter, setFilter] = useState("")
+  const [stateMessage, setStateMessage] = useState(null)
 
   // effect
   useEffect(() => {
@@ -47,6 +48,10 @@ const App = () => {
             .update(exist.id, newValue)
             .then(returnedPerson => {
               setPersons(persons.map(p => p.id === returnedPerson.id ? returnedPerson : p))
+              setStateMessage(`Updated number for ${returnedPerson.name}`)
+              setTimeout(() => {
+                setStateMessage(null)
+              }, 5000)      
             })
         }
       }
@@ -59,6 +64,10 @@ const App = () => {
         setPersons(persons.concat(returnedValue))
         setNewPerson({name: "", number: ""})
         console.log(`handle returned: ${returnedValue.name}, ${returnedValue.number}`)
+        setStateMessage(`Added ${returnedValue.name}`)
+        setTimeout(() => {
+          setStateMessage(null)
+        }, 5000)
       }
     )
   }
@@ -75,6 +84,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={stateMessage} />
       <Filter value={filter} onChange={(evt) => setFilter(evt.target.value)} />
       <h3>Add a new</h3>
       <PersonForm onSubmit={handleNewPerson} value={newPerson} updateValue={setNewPerson} />

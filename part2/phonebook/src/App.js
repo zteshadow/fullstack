@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import persionService from './services/PersonService'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
@@ -53,6 +52,14 @@ const App = () => {
     )
   }
 
+  const handleDelete = (person) => {
+    console.log(`delete ${person.name} ${person.id}`)
+    persionService
+      .deletePerson(person)
+      .then(deletedPerson => {
+        setPersons(persons.filter(p => p.id !== person.id))
+      })
+  }
   // body
   return (
     <div>
@@ -61,7 +68,7 @@ const App = () => {
       <h3>Add a new</h3>
       <PersonForm onSubmit={handleNewPerson} value={newPerson} updateValue={setNewPerson} />
       <h3>Numbers</h3>
-      <Persons persons={shownPerson} />
+      <Persons persons={shownPerson} deleteHandler={handleDelete}/>
     </div>
   )
 }
